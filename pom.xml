@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sp.juc.integrations</groupId>
+    <artifactId>sp-juc-integrations</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <modules>
+        <module>sp-consume-model</module>
+        <module>sp-rmq-interaction</module>
+        <module>sp-ons-mq-demo</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <java.version>1.8</java.version>
+
+        <sp.base.dependencies.version>1.0.0-SNAPSHOT</sp.base.dependencies.version>
+        <rmq-client.version>4.3.0</rmq-client.version>
+        <ons-client.version>1.8.4.Final</ons-client.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- SuperSpace基础依赖集 -->
+            <dependency>
+                <groupId>com.sp.base</groupId>
+                <artifactId>sp-base-dependencies</artifactId>
+                <version>${sp.base.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rmq-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.openservices</groupId>
+                <artifactId>ons-client</artifactId>
+                <version>${ons-client.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>x
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!--SuperSpace公共规范库组件-->
+        <dependency>
+            <groupId>com.sp.framework</groupId>
+            <artifactId>sp-framework-common</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

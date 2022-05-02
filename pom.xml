@@ -45,7 +45,7 @@
                 <version>${ons-client.version}</version>
             </dependency>
         </dependencies>
-    </dependencyManagement>x
+    </dependencyManagement>
 
     <dependencies>
         <dependency>

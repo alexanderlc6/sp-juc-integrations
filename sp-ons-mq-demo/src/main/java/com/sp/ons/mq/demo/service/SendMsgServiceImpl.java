@@ -1,16 +1,22 @@
 package com.sp.ons.mq.demo.service;
 
-import com.aliyun.openservices.ons.api.Message;
-import com.aliyun.openservices.ons.api.SendResult;
+import com.aliyun.openservices.ons.api.*;
+import com.aliyun.openservices.ons.api.bean.ConsumerBean;
 import com.aliyun.openservices.ons.api.bean.ProducerBean;
 import com.aliyun.openservices.ons.api.exception.ONSClientException;
+import com.aliyun.openservices.shade.com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer;
 import com.sp.ons.mq.demo.config.MqConfig;
 import com.sp.ons.mq.demo.domain.SendMsgVO;
+import com.sp.ons.mq.demo.normal.DemoMessageListener;
 import com.sp.ons.mq.demo.normal.ProducerClient;
+import com.zhongan.zaenc.Zaenc;
+import com.zhongan.zaenc.ZaencException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.stereotype.Service;
+
+import java.util.Properties;
 
 /**
  * @description:
@@ -22,6 +28,9 @@ public class SendMsgServiceImpl implements SendMsgService {
     //普通消息的Producer 已经注册到了spring容器中，后面需要使用时可以直接注入到其它类中
     @Autowired
     private ProducerBean producer;
+
+//    @Autowired
+//    private ConsumerBean consumerBean;
 
     @Autowired
     private MqConfig mqConfig;
@@ -58,12 +67,34 @@ public class SendMsgServiceImpl implements SendMsgService {
     }
 
     public void testConsumer(SendMsgVO sendMsg){
-        //方便测试，运行这个方法时启动
-        new ImportSelector(){
-            @Override
-            public String[] selectImports(AnnotationMetadata annotationMetadata) {
-                return new String[]{"com.aliyun.openservices.springboot.example.normal.ConsumerClient"};
-            }
-        };
+//        new ImportSelector(){
+//            @Override
+//            public String[] selectImports(AnnotationMetadata annotationMetadata) {
+//                return new String[]{"com.aliyun.openservices.springboot.example.normal.ConsumerClient"};
+//            }
+//        };
+
+//        DefaultMQPushConsumer mqPushConsumer = new DefaultMQPushConsumer("test-cons-grp1");
+        Properties consumerProperties = new Properties();
+        consumerProperties.setProperty(PropertyKeyConst.GROUP_ID, mqConfig.getGroupId());
+        consumerProperties.setProperty(PropertyKeyConst.AccessKey, mqConfig.getAccessKey());
+        try {
+            consumerProperties.setProperty(PropertyKeyConst.SecretKey, Zaenc.decryptData(mqConfig.getSecretKey()));
+        } catch (ZaencException e) {
+            e.printStackTrace();
+        }
+        consumerProperties.setProperty(PropertyKeyConst.NAMESRV_ADDR, mqConfig.getNameSrvAddr());
+        Consumer consumer = ONSFactory.createConsumer(consumerProperties);
+        consumer.subscribe(mqConfig.getTopic(), mqConfig.getTag(), new DemoMessageListener());
+        consumer.start();
+        System.out.println("Consumer start success.");
+
+        //等待固定时间防止进程退出
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+
 }

@@ -38,7 +38,7 @@ public class SendMsgController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/consume")
+    @PostMapping("/consume")
     public ResponseVO consumeMsg(@RequestBody SendMsgVO sendMsg) throws Exception {
         sendMsgService.testConsumer(sendMsg);
         return ResponseUtil.getSuccess();

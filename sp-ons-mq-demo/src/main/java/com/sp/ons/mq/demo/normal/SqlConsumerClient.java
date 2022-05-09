@@ -5,6 +5,7 @@ import com.aliyun.openservices.ons.api.PropertyKeyConst;
 import com.aliyun.openservices.ons.api.bean.ConsumerBean;
 import com.aliyun.openservices.ons.api.bean.Subscription;
 import com.sp.ons.mq.demo.config.MqConfig;
+import com.zhongan.zaenc.ZaencException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
@@ -26,7 +27,12 @@ public class SqlConsumerClient {
     public ConsumerBean buildSqlConsumer() {
         ConsumerBean consumerBean = new ConsumerBean();
         //配置文件
-        Properties properties = mqConfig.getMqPropertie();
+        Properties properties = null;
+        try {
+            properties = mqConfig.getMqPropertie();
+        } catch (ZaencException e) {
+            e.printStackTrace();
+        }
         properties.setProperty(PropertyKeyConst.GROUP_ID, mqConfig.getGroupId());
         consumerBean.setProperties(properties);
         //订阅关系

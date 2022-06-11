@@ -38,7 +38,7 @@ public class SendMsgServiceImpl implements SendMsgService {
     public String testSend(SendMsgVO sendMsg) {
         StringBuilder stbErrors = new StringBuilder();
         //循环发送消息
-        for (int i = 0; i < 100; i++) {
+//        for (int i = 0; i < 100; i++) {
             Message msg = new Message( //
                     // Message所属的Topic
                     mqConfig.getTopic(),
@@ -51,6 +51,7 @@ public class SendMsgServiceImpl implements SendMsgService {
             // 以方便您在无法正常收到消息情况下，可通过MQ 控制台查询消息并补发
             // 注意：不设置也不会影响消息正常收发
             msg.setKey("ZA-ONS-TEST-001");
+//            msg.putUserProperties("baggage", "INJECTED_OTEL_CONTEXT=cd");
             // 发送消息，只要不抛异常就是成功
             try {
                 SendResult sendResult = producer.send(msg);
@@ -61,7 +62,7 @@ public class SendMsgServiceImpl implements SendMsgService {
                 //出现异常意味着发送失败，为了避免消息丢失，建议缓存该消息然后进行重试。
                 stbErrors.append("发送失败:" +e.getMessage());
             }
-        }
+//        }
 
         return stbErrors.toString();
     }

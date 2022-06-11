@@ -1,4 +1,6 @@
-package com.sp.juc.consume.model;
+package com.sp.juc.consume.model.normal;
+
+import com.sp.juc.consume.model.SpData;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;

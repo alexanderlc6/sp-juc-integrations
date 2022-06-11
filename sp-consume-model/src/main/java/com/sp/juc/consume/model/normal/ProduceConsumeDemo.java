@@ -1,4 +1,6 @@
-package com.sp.juc.consume.model;
+package com.sp.juc.consume.model.normal;
+
+import com.sp.juc.consume.model.SpData;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -10,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @author: luchao
  * @date: Created in 12/5/21 6:08 PM
  */
-public class TestDemo {
+public class ProduceConsumeDemo {
 
     public static void main(String[] args) throws InterruptedException {
         BlockingQueue<SpData> queue = new LinkedBlockingQueue<>(10);

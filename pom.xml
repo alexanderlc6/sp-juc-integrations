@@ -13,6 +13,8 @@
         <module>sp-rmq-interaction</module>
         <module>sp-ons-mq-demo</module>
         <module>sp-netty-interaction</module>
+        <module>db-test</module>
+        <module>sp-dynamic-proxy</module>
     </modules>
 
     <properties>
@@ -24,6 +26,7 @@
         <rmq-client.version>4.3.0</rmq-client.version>
         <ons-client.version>1.8.4.Final</ons-client.version>
         <netty.version>4.1.78.Final-SNAPSHOT</netty.version>
+        <cglib.version>3.3.0</cglib.version>
     </properties>
 
     <dependencyManagement>
@@ -51,6 +54,19 @@
                 <groupId>io.netty</groupId>
                 <artifactId>netty-codec-http</artifactId>
                 <version>${netty.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>RELEASE</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -96,6 +112,8 @@
             <artifactId>za-ec</artifactId>
             <version>0.0.11</version>
         </dependency>
+
+
     </dependencies>
 
 </project>

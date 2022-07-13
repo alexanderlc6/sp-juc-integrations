@@ -107,13 +107,6 @@
             <groupId>com.sp.framework</groupId>
             <artifactId>sp-framework-common</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.zhongan</groupId>
-            <artifactId>za-ec</artifactId>
-            <version>0.0.11</version>
-        </dependency>
-
-
     </dependencies>
 
 </project>

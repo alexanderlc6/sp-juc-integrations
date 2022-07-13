@@ -13,8 +13,8 @@
         <module>sp-rmq-interaction</module>
         <module>sp-ons-mq-demo</module>
         <module>sp-netty-interaction</module>
-        <module>db-test</module>
         <module>sp-dynamic-proxy</module>
+        <module>sp-concurrent-demo</module>
     </modules>
 
     <properties>

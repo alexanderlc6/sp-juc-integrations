@@ -1,19 +1,12 @@
 package com.sp.ons.mq.demo.service;
 
 import com.aliyun.openservices.ons.api.*;
-import com.aliyun.openservices.ons.api.bean.ConsumerBean;
 import com.aliyun.openservices.ons.api.bean.ProducerBean;
 import com.aliyun.openservices.ons.api.exception.ONSClientException;
-import com.aliyun.openservices.shade.com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer;
 import com.sp.ons.mq.demo.config.MqConfig;
 import com.sp.ons.mq.demo.domain.SendMsgVO;
 import com.sp.ons.mq.demo.normal.DemoMessageListener;
-import com.sp.ons.mq.demo.normal.ProducerClient;
-import com.zhongan.zaenc.Zaenc;
-import com.zhongan.zaenc.ZaencException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ImportSelector;
-import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.stereotype.Service;
 
 import java.util.Properties;
@@ -79,11 +72,7 @@ public class SendMsgServiceImpl implements SendMsgService {
         Properties consumerProperties = new Properties();
         consumerProperties.setProperty(PropertyKeyConst.GROUP_ID, mqConfig.getGroupId());
         consumerProperties.setProperty(PropertyKeyConst.AccessKey, mqConfig.getAccessKey());
-        try {
-            consumerProperties.setProperty(PropertyKeyConst.SecretKey, Zaenc.decryptData(mqConfig.getSecretKey()));
-        } catch (ZaencException e) {
-            e.printStackTrace();
-        }
+        consumerProperties.setProperty(PropertyKeyConst.SecretKey, mqConfig.getSecretKey());
         consumerProperties.setProperty(PropertyKeyConst.NAMESRV_ADDR, mqConfig.getNameSrvAddr());
         Consumer consumer = ONSFactory.createConsumer(consumerProperties);
         consumer.subscribe(mqConfig.getTopic(), mqConfig.getTag(), new DemoMessageListener());

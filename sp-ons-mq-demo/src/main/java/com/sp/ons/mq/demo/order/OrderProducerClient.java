@@ -2,7 +2,6 @@ package com.sp.ons.mq.demo.order;
 
 import com.aliyun.openservices.ons.api.bean.OrderProducerBean;
 import com.sp.ons.mq.demo.config.MqConfig;
-import com.zhongan.zaenc.ZaencException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +17,7 @@ public class OrderProducerClient {
         OrderProducerBean orderProducerBean = new OrderProducerBean();
         try {
             orderProducerBean.setProperties(mqConfig.getMqPropertie());
-        } catch (ZaencException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return orderProducerBean;

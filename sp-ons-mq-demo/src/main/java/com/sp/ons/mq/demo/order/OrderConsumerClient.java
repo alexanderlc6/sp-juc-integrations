@@ -5,7 +5,6 @@ import com.aliyun.openservices.ons.api.bean.OrderConsumerBean;
 import com.aliyun.openservices.ons.api.bean.Subscription;
 import com.aliyun.openservices.ons.api.order.MessageOrderListener;
 import com.sp.ons.mq.demo.config.MqConfig;
-import com.zhongan.zaenc.ZaencException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
@@ -29,7 +28,7 @@ public class OrderConsumerClient {
         Properties properties = null;
         try {
             properties = mqConfig.getMqPropertie();
-        } catch (ZaencException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         properties.setProperty(PropertyKeyConst.GROUP_ID, mqConfig.getOrderGroupId());

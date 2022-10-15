@@ -15,6 +15,8 @@
         <module>sp-netty-interaction</module>
         <module>sp-dynamic-proxy</module>
         <module>sp-concurrent-demo</module>
+        <module>sp-lib-function-poc</module>
+        <module>test-proc</module>
     </modules>
 
     <properties>
